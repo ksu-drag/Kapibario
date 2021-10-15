@@ -55,6 +55,6 @@ function kapibaraDraw (){
         ctx.lineTo(kapiPos.x +30, kapiPos.y +50);
         ctx.stroke();    
     ctx.closePath();
-    game.req = requestAnimationFrame(kapibaraDraw ());
+    game.req = requestAnimationFrame(kapibaraDraw);
 };
 
