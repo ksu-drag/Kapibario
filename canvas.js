@@ -14,15 +14,16 @@ document.addEventListener('keyup', (e)=> {
 });
 
 function movementPlayer() {
-    if(keyz['ArrowLeft']){kapiPos.x += kapiPos.speed};
-    if(keyz['ArrowRight']){kapiPos.x -=kapiPos.speed};
-    if(keyz['ArrowUp']){kapiPos.y += kapiPos.speed};
-    if(keyz['ArrowDown']){kapiPos.y -= kapiPos.speed};
+    if(keyz['ArrowLeft']){kapiPos.x -= kapiPos.speed};
+    if(keyz['ArrowRight']){kapiPos.x +=kapiPos.speed};
+    if(keyz['ArrowUp']){kapiPos.y -= kapiPos.speed};
+    if(keyz['ArrowDown']){kapiPos.y += kapiPos.speed};
 }
 
 function kapibaraDraw (){
     movementPlayer();
     ctx.beginPath();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
         ctx.fillStyle = 'Sienna';
         ctx.ellipse(kapiPos.x + 50, kapiPos.y-50, 20, 30, 80, 0, Math.PI*2);
@@ -44,7 +45,7 @@ function kapibaraDraw (){
         ctx.strokeStyle = "Sienna"
         ctx.lineWidth = 10;
         ctx.lineCap = "round";
-        ctx.moveTo(kapiPos.x -30, kapiPos.x);
+        ctx.moveTo(kapiPos.x -30, kapiPos.y);
         ctx.lineTo(kapiPos.x -60, kapiPos.y -20);
         ctx.stroke();
         ctx.beginPath();
