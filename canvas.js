@@ -15,26 +15,25 @@ function kapibaraDraw (){
     ctx.fillStyle = 'black';
     ctx.arc(450, 350, 5,0, Math.PI*2)
     ctx.fill();
-    
-    //   for (let i = 0; i< 12; i++){
-//       ctx.beginPath();
-//       ctx.moveTo(445- (i *7) , 375 -(i *2));
-//       ctx.lineTo(435- (i *7), 353+(i*2));
-//       ctx.strokeStyle = "SaddleBrown";
-//       ctx.stroke();
-      
-//   }
-
+    ctx.beginPath();
+    ctx.fillStyle = 'Sienna';
+    ctx.ellipse(430, 330, 7, 4, 80, 0, Math.PI*2);
+    ctx.ellipse(440, 327, 7, 4, 80, 0, Math.PI*2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.strokeStyle = "Sienna"
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round";
+    ctx.moveTo(370, 400);
+    ctx.lineTo(340, 380);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.lineWidth = 14;
+    ctx.moveTo(370, 410);
+    ctx.lineTo(360, 450);
+    ctx.moveTo(420, 410);
+    ctx.lineTo(430, 450);
+    ctx.stroke();    
 }
 
-
-
 kapibaraDraw();
-
-
-
-
-
-
-
-console.log(canvas.width/2 + 50, canvas.height/2 -50)
