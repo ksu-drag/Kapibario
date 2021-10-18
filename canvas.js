@@ -1,3 +1,9 @@
+// 1) do not go beyond the edges of the zone
+// 2) made a normal functionalaty of kapibara
+//    - jump up 
+//    - jump forward
+//    -  gravity 
+//    - and rotation
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 5};
