@@ -6,8 +6,7 @@
 //    - and rotation
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 5};
-console.log(kapiPos);
+const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 5, size: 70};
 
 const game = {req: 0};
 game.req = requestAnimationFrame(kapibaraDraw);
@@ -20,10 +19,10 @@ document.addEventListener('keyup', (e)=> {
 });
 
 function movementPlayer() {
-    if(keyz['ArrowLeft']){kapiPos.x -= kapiPos.speed};
-    if(keyz['ArrowRight']){kapiPos.x +=kapiPos.speed};
-    if(keyz['ArrowUp']){kapiPos.y -= kapiPos.speed};
-    if(keyz['ArrowDown']){kapiPos.y += kapiPos.speed};
+    if(keyz['ArrowLeft']&& kapiPos.x > 0 + kapiPos.size){kapiPos.x -= kapiPos.speed};
+    if(keyz['ArrowRight']&& kapiPos.x < canvas.width-kapiPos.size){kapiPos.x +=kapiPos.speed};
+    if(keyz['ArrowUp']&& kapiPos.y > 0+kapiPos.size){kapiPos.y -= kapiPos.speed};
+    if(keyz['ArrowDown']&& kapiPos.y < canvas.height-kapiPos.size){kapiPos.y += kapiPos.speed};
 }
 
 function kapibaraDraw (){
