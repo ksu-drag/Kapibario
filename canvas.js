@@ -6,7 +6,7 @@
 //    - and rotation
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
-const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 5, size: 70};
+const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 10, size: 70};
 
 const game = {req: 0};
 game.req = requestAnimationFrame(kapibaraDraw);
