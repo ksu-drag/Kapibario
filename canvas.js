@@ -19,10 +19,10 @@ document.addEventListener('keyup', (e)=> {
 });
 
 function movementPlayer() {
-    if(keyz['ArrowLeft']&& kapiPos.x > 0 + kapiPos.size){kapiPos.x -= kapiPos.speed};
-    if(keyz['ArrowRight']&& kapiPos.x < canvas.width-kapiPos.size){kapiPos.x +=kapiPos.speed};
-    if(keyz['ArrowUp']&& kapiPos.y > 0+kapiPos.size){kapiPos.y -= kapiPos.speed};
-    if(keyz['ArrowDown']&& kapiPos.y < canvas.height-kapiPos.size){kapiPos.y += kapiPos.speed};
+    if(keyz['ArrowLeft'] && kapiPos.x > (0 + kapiPos.size)){kapiPos.x -= kapiPos.speed};
+    if(keyz['ArrowRight'] && kapiPos.x < canvas.width-kapiPos.size){kapiPos.x +=kapiPos.speed};
+    if(keyz['ArrowUp'] && kapiPos.y > 0 + kapiPos.size){kapiPos.y -= kapiPos.speed};
+    if(keyz['ArrowDown'] && kapiPos.y < canvas.height-kapiPos.size){kapiPos.y += kapiPos.speed};
 }
 
 function kapibaraDraw (){
