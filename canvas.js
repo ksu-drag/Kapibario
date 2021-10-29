@@ -4,63 +4,132 @@
 //    - jump forward
 //    -  gravity 
 //    - and rotation
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 10, size: 70};
-
-const game = {req: 0};
+let canvas = document.getElementById("canvas");
+let ctx = canvas.getContext("2d");
+const kapiPos = {x: canvas.width/2, y: canvas.height/2, speed: 5, size: 70, jump: 70};
+let leftPressed = false;
+let rightPressed = false;
+let jumpPressed = false;
+let jumpCount = 0;
+let jumpLength = 50;
+let jumpHeight = 0;
+let kapibaraDirection;
+let x = canvas.width/2;
+let y = canvas.height-35;
+let playerHeight = kapiPos.size;
+let playerWidth = kapiPos.size;
+let paddleX = kapiPos.x;
+const game = {req: 0,req2: 0};
 game.req = requestAnimationFrame(kapibaraDraw);
-const keyz = {ArrowLeft: false, ArrowRight: false, ArrowUp: false, ArrowDown: false};
-document.addEventListener('keydown', (e)=> {
-    if(e.code in keyz){keyz[e.code] = true};
-});
-document.addEventListener('keyup', (e)=> {
-    if(e.code in keyz){keyz[e.code] = false};
-});
 
-function movementPlayer() {
-    if(keyz['ArrowLeft'] && kapiPos.x > (0 + kapiPos.size)){kapiPos.x -= kapiPos.speed};
-    if(keyz['ArrowRight'] && kapiPos.x < canvas.width-kapiPos.size){kapiPos.x +=kapiPos.speed};
-    if(keyz['ArrowUp'] && kapiPos.y > 0 + kapiPos.size){kapiPos.y -= kapiPos.speed};
-    if(keyz['ArrowDown'] && kapiPos.y < canvas.height-kapiPos.size){kapiPos.y += kapiPos.speed};
-}
+	document.addEventListener("keydown", keyRightHandler, false);
+	document.addEventListener("keyup", keyLeftHandler, false);
 
+	function keyRightHandler(e){
+		if(e.keyCode == 39){
+			rightPressed = true;
+            kapibaraDirection = true;
+		}
+		if(e.keyCode == 37){
+			leftPressed = true;
+            kapibaraDirection = false;
+		}
+		if(e.keyCode == 38){
+		  jumpPressed = true;
+		}
+    
+	}
+
+	function keyLeftHandler(e){
+		if(e.keyCode == 39){
+			rightPressed = false;
+		}
+		if(e.keyCode == 37){
+			leftPressed = false;
+		}
+	}
 function kapibaraDraw (){
-    movementPlayer();
-    ctx.beginPath();
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.beginPath();
-        ctx.fillStyle = 'Sienna';
-        ctx.ellipse(kapiPos.x + 50, kapiPos.y-50, 20, 30, 80, 0, Math.PI*2);
-        ctx.rect(kapiPos.x+20, kapiPos.y - 50, 30, 45);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(kapiPos.x, kapiPos.y, 30, 50, 80, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.fillStyle = 'black';
-        ctx.arc(kapiPos.x +50, kapiPos.y -50, 5,0, Math.PI*2)
-        ctx.fill();
-        ctx.beginPath();
-        ctx.fillStyle = 'Sienna';
-        ctx.ellipse(kapiPos.x +30, kapiPos.y - 70, 7, 4, 80, 0, Math.PI*2);
-        ctx.ellipse(kapiPos.x +40, kapiPos.y - 73, 7, 4, 80, 0, Math.PI*2);
-        ctx.fill();
-        ctx.beginPath();
-        ctx.strokeStyle = "Sienna"
-        ctx.lineWidth = 10;
-        ctx.lineCap = "round";
-        ctx.moveTo(kapiPos.x -30, kapiPos.y);
-        ctx.lineTo(kapiPos.x -60, kapiPos.y -20);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.lineWidth = 14;
-        ctx.moveTo(kapiPos.x -30, kapiPos.y +10);
-        ctx.lineTo(kapiPos.x -40, kapiPos.y + 50);
-        ctx.moveTo(kapiPos.x +20, kapiPos.y +10);
-        ctx.lineTo(kapiPos.x +30, kapiPos.y +50);
-        ctx.stroke();    
-    ctx.closePath();
-    game.req = requestAnimationFrame(kapibaraDraw);
-};
+    // movementPlayer();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+/////////////////////// BODY 
+ctx.beginPath();
+    ctx.fillStyle = 'Sienna';
+    ctx.ellipse(paddleX, canvas.height-playerHeight-jumpHeight, 30, 50, 80, 0, Math.PI*2);
+    ctx.fill();
 
+ /////////////////////// HEAD
+ctx.beginPath();
+if( !kapibaraDirection){
+      ctx.ellipse(paddleX - 48, canvas.height-playerHeight-jumpHeight-50, 20, 30, 80, 0, Math.PI*2);
+      ctx.rect(paddleX-48, canvas.height-playerHeight-jumpHeight - 50, 30, 45);
+}else if(kapibaraDirection){
+      ctx.ellipse(paddleX +48, canvas.height-playerHeight-jumpHeight-50, 20, 30, 80, 0, Math.PI*2);
+      ctx.rect(paddleX +20, canvas.height-playerHeight-jumpHeight - 50, 30, 45);
+}
+    ctx.fill();
+//////////////////// TAIL
+ctx.beginPath();
+    ctx.strokeStyle = "Sienna"
+    ctx.lineWidth = 10;
+    ctx.lineCap = "round";
+if(!kapibaraDirection){
+  ctx.moveTo(paddleX +30, canvas.height-playerHeight-jumpHeight);
+  ctx.lineTo(paddleX +60, canvas.height-playerHeight-jumpHeight -20);
+}else if(kapibaraDirection){
+  ctx.moveTo(paddleX -30, canvas.height-playerHeight-jumpHeight);
+  ctx.lineTo(paddleX -60, canvas.height-playerHeight-jumpHeight -20);
+}
+     ctx.stroke();
+/////////////////// EYES
+ctx.beginPath();
+ctx.fillStyle = 'black';
+ if( !kapibaraDirection ){
+   ctx.arc(paddleX-50, canvas.height-playerHeight-jumpHeight -50, 5,0, Math.PI*2)
+ }else if(kapibaraDirection){
+   ctx.arc(paddleX +50, canvas.height-playerHeight-jumpHeight -50, 5,0, Math.PI*2)
+ }
+   ctx.fill();
+///////////////////  EARS         
+ctx.beginPath();
+    ctx.fillStyle = 'Sienna';
+if (!kapibaraDirection){
+    ctx.ellipse(paddleX -30, canvas.height-playerHeight-jumpHeight - 70, 7, 4, 80, 0, Math.PI*2);
+    ctx.ellipse(paddleX -40, canvas.height-playerHeight-jumpHeight - 73, 7, 4, 80, 0, Math.PI*2);
+}else if(kapibaraDirection){
+    ctx.ellipse(paddleX +30, canvas.height-playerHeight-jumpHeight - 70, 7, 4, 80, 0, Math.PI*2);
+    ctx.ellipse(paddleX +40, canvas.height-playerHeight-jumpHeight- 73, 7, 4, 80, 0, Math.PI*2);
+}
+    ctx.fill();
+////////////////////// FEET
+    ctx.beginPath();
+    ctx.lineWidth = 14;
+    ctx.moveTo(paddleX -30, canvas.height-playerHeight-jumpHeight +10);
+    ctx.lineTo(paddleX -40, canvas.height-playerHeight-jumpHeight + 50);
+    ctx.moveTo(paddleX+20, canvas.height-playerHeight-jumpHeight +10);
+    ctx.lineTo(paddleX +30, canvas.height-playerHeight-jumpHeight +50);
+    ctx.stroke();    
+////////////////////
+game.req = requestAnimationFrame(kapibaraDraw);
+};
+function draw(){
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	if(rightPressed && paddleX < canvas.width-playerWidth){
+		paddleX += 7;
+	}
+	else if(leftPressed && paddleX > 0){
+		paddleX -= 7;
+	}
+	if(jumpPressed){
+    jumpCount++;
+    jumpHeight = 4*jumpLength*Math.sin(Math.PI*jumpCount/jumpLength);
+    }
+	if(jumpCount>jumpLength){
+    jumpCount=0;
+    jumpPressed=false;
+    jumpHeight=0;
+	}
+  
+	kapibaraDraw();
+
+}
+setInterval(draw, 10);
