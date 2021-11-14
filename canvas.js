@@ -218,7 +218,7 @@ setInterval(draw, 10);
 
 function kapiEarth() {
   ctx.fillStyle = "green";
-  ctx.fillRect(0, 400, 300, 600);
+  ctx.fillRect(0, 450, 300, 600);
   ctx.fillRect(300, 650, 300, 300);
   ctx.fillRect(1500, 300, 300, 600);
   ctx.fillRect(1200, 450, 300, 500);
