@@ -8,7 +8,7 @@ let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
 const kapiPos = {
   x: canvas.width / 7,
-  y: canvas.height / 2,
+  y: canvas.height / 2 + 50,
   speed: 5,
   size: 70,
   jump: 70
