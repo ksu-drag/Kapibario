@@ -188,7 +188,6 @@ function kapibaraDraw() {
   game.req = requestAnimationFrame(kapibaraDraw);
 }
 function draw() {
-  let notDependet = true; 
 function update (){
   window.location.reload();
 }// 1160, 605
@@ -213,8 +212,6 @@ if (paddleX > 640 && paddleX < 860 && !jumpPressed && kapiPos.y <850){
     jumpCount = 0;
   }else if(rightPressed && kapiPos.y >= 600 && paddleX <= 1110 && kapiPos.y <=700){
     paddleX +=7;
-  }else if (rightPressed && paddleX < 1500  && paddleX > 1200  && kapiPos.y <= 450) {
-    paddleX += 7;
   }else if (rightPressed && paddleX < canvas.width - playerWidth && kapiPos.y<=605&& paddleX <1130) {
     paddleX += 7;
   }
