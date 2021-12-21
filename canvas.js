@@ -188,16 +188,39 @@ function kapibaraDraw() {
   game.req = requestAnimationFrame(kapibaraDraw);
 }
 function draw() {
+  let notDependet = true; 
+function update (){
+  window.location.reload();
+}// 1160, 605
+if (paddleX > 640 && paddleX < 860 && !jumpPressed && kapiPos.y <850){
+  kapiPos.y += 10;
+  setTimeout(update,900);
+}
+
   if (paddleX >= 300 && kapiPos.y <= 600) {
     kapiPos.y += 5;
-  } 
-  
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  if (rightPressed && paddleX < canvas.width - playerWidth) {
-    paddleX += 7;
-  }else if (leftPressed && paddleX > 0 && paddleX < 350 && kapiPos.y <= 450) {
+  }else if (leftPressed && paddleX > 0 && paddleX < 350 && kapiPos.y <= 400) {
     paddleX -= 7;
-  }else if(leftPressed && kapiPos.y > 450 && paddleX >= 350){
+  }
+  if (leftPressed && paddleX<= 376 && jumpPressed && kapiPos.y <= 605 && paddleX >0){
+    kapiPos.y = canvas.height/2- kapiPos.size +20;
+  }else if(leftPressed && kapiPos.y >= 600 && paddleX >= 380 && kapiPos.y<=700 ){
+    paddleX -= 7;
+  }
+  if(paddleX >= 1000 && kapiPos.y <= 605 && paddleX <1500 && jumpPressed){
+    kapiPos.y = canvas.height/2- kapiPos.size +30;
+    paddleX = 1300;
+    jumpCount = 0;
+  }else if(rightPressed && kapiPos.y >= 600 && paddleX <= 1110 && kapiPos.y <=700){
+    paddleX +=7;
+  }else if (rightPressed && paddleX < 1500  && paddleX > 1200  && kapiPos.y <= 450) {
+    paddleX += 7;
+  }else if (rightPressed && paddleX < canvas.width - playerWidth && kapiPos.y<=605&& paddleX <1130) {
+    paddleX += 7;
+  }
+  if (leftPressed && paddleX > 0 && paddleX < 350 && kapiPos.y <= 450) {
+    paddleX -= 7;
+  }else if(leftPressed && kapiPos.y > 450 && paddleX >= 350 && kapiPos.y<=700){
     paddleX -= 7;
   }
   if (jumpPressed) {
@@ -229,3 +252,7 @@ function kapiWater() {
   ctx.fillStyle = "rgba(55, 200, 200, 0.5)";
   ctx.fillRect(600, 700, 300, 200);
 }
+
+
+
+
