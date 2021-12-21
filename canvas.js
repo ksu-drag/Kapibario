@@ -251,7 +251,7 @@ function kapiWater() {
 }
 
 let sprite = new Image();
-sprite.src = 'https://ru.freepik.com/free-vector/opening-wooden-front-door-with-stone-frame-isolated-on-white-background-cartoon-set-of-house-entrance-brown-closed-ajar-and-open-doors-illustration-for-sprite-animation-or-2d-game_10308114.htm';
+sprite.src = 'opening-wooden-front-door-with-stone-frame-isolated-on-white-background-cartoon-set-of-house-entrance-brown-closed-ajar-and-open-doors-illustration-for-sprite-animation-or-2d-game_107791-3557.jpg';
 sprite.onload = function(){
   // initFun 
   tick();
