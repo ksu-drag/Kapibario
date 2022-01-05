@@ -6,6 +6,7 @@
 //    - and rotation
 let canvas = document.getElementById("canvas");
 let ctx = canvas.getContext("2d");
+let callCollege;
 const kapiPos = {
   x: canvas.width / 7,
   y: canvas.height / 2 -50,
@@ -28,10 +29,10 @@ let playerWidth = kapiPos.size;
 let paddleX = kapiPos.x;
 const game = { req: 0, req2: 0 };
 game.req = requestAnimationFrame(kapibaraDraw);
+game.req2 = requestAnimationFrame(drawTurt);
 
 document.addEventListener("keydown", keyRightHandler, false);
 document.addEventListener("keyup", keyLeftHandler, false);
-
 function keyRightHandler(e) {
   if (e.keyCode == 39) {
     rightPressed = true;
@@ -56,10 +57,15 @@ function keyLeftHandler(e) {
 }
 
 function kapibaraDraw() {
-  // movementPlayer();
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   kapiEarth();
   kapiWater();
+  if(callCollege === true) setTimeout(buttonAngel(),100);
+  if(paddleX > 1200){
+    setTimeout(drawTurt(),900);
+  }
+
+ 
   /////////////////////// BODY
   ctx.beginPath();
   ctx.fillStyle = "Sienna";
@@ -210,6 +216,8 @@ if (paddleX > 640 && paddleX < 860 && !jumpPressed && kapiPos.y <850){
     kapiPos.y = canvas.height/2- kapiPos.size +30;
     paddleX = 1300;
     jumpCount = 0;
+    callCollege = true;
+
   }else if(rightPressed && kapiPos.y >= 600 && paddleX <= 1110 && kapiPos.y <=700){
     paddleX +=7;
   }else if (rightPressed && paddleX < canvas.width - playerWidth && kapiPos.y<=605&& paddleX <1130) {
@@ -229,7 +237,7 @@ if (paddleX > 640 && paddleX < 860 && !jumpPressed && kapiPos.y <850){
       jumpPressed = false;
       jumpHeight = 0;
   }
-  
+ 
   kapibaraDraw();
   kapiEarth();
   kapiWater();
@@ -250,15 +258,25 @@ function kapiWater() {
   ctx.fillRect(600, 700, 300, 200);
 }
 
-let sprite = new Image();
-sprite.src = 'opening-wooden-front-door-with-stone-frame-isolated-on-white-background-cartoon-set-of-house-entrance-brown-closed-ajar-and-open-doors-illustration-for-sprite-animation-or-2d-game_107791-3557.jpg';
-sprite.onload = function(){
-  // initFun 
-  tick();
-  // reqAnim
-};
-function tick (){
-  ctx.drawImage(sprite,90,150);
-};
+function drawTurt (){
+  const tort = document.querySelector('img');
+  tort.style.display = 'none';
+  ctx.drawImage(tort, 1600, 150,150, 150);
+} 
 
-  
+
+function buttonAngel (){
+  ctx.beginPath();
+  ctx.font = 'italic 30px Noto Sans Japanese'
+  const text = "Go to College";
+  ctx.fillStyle = "grey";
+  ctx.font = 'italic 30px Noto Sans Japanese'
+  ctx.fillText(text, 1390, 370, 100);
+  ctx.lineWidth = 5;
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.strokeStyle ="grey";
+  ctx.fillStyle = "lightpink"; 
+  ctx.rect(1385, 330, 110, 60);
+  ctx.stroke();
+  ctx.closePath();
+};
